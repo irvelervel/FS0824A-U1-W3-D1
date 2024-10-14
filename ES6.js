@@ -214,3 +214,97 @@ robot5.brand = 'Tesla'
 console.log(brand, model, iq)
 
 // NUOVI METODI PER GLI ARRAY
+// tutti i metodi che andremo ad esplorare adesso sono dei metodi che CICLANO gli array
+
+const singers = ['Adriano Celentano', 'Gianni Morandi', 'Claudio Baglioni']
+for (let i = 0; i < singers.length; i++) {
+  console.log(singers[i].slice(0, 1))
+}
+
+// .forEach()
+singers.forEach((singer) => {
+  // qui dentro ci andrà il codice che verrà eseguito per OGNI elemento dell'array
+  // singer è la stessa cosa di singers[i] nel ciclo for
+  console.log(singer.slice(0, 1))
+})
+// una funzione passata come parametro di un'altra funzione si chiama "callback"
+
+const above100 = [] // deve diventare [280, 300]
+const numbers = [32, 280, 56, 0, 300]
+
+// for (let i = 0; i < numbers.length; i++) {
+//   if (numbers[i] > 100) {
+//     above100.push(numbers[i])
+//   }
+// }
+
+numbers.forEach((singleNumber) => {
+  if (singleNumber > 100) {
+    above100.push(singleNumber)
+  }
+  // PRO VERSION con ternario (ringraziamo Lorenzo!)
+  //   singleNumber > 100 ? above100.push(singleNumber) : {}
+})
+
+console.log(above100)
+
+numbers.forEach((singleNumber, i) => {
+  console.log('SONO AL CICLO n.' + i)
+  // il secondo parametro del forEach è la i del corrispondente for (se vi serve)
+})
+
+// .map()
+// map TRASFORMA un array in UN ALTRO ARRAY (con la stessa lunghezza)
+
+// dato un array di stringhe, crea un nuovo array numerico dove ogni elemento
+// è pari alla lunghezza di ogni stringa
+
+const strArray = ['epicode', 'school', 'robot'] // -> [7, 6, 5]
+
+const lengthArray = []
+
+// for (let i = 0; i < strArray.length; i++) {
+//   lengthArray.push(strArray[i].length)
+// }
+
+strArray.forEach((word) => {
+  lengthArray.push(word.length)
+})
+
+// .map() trasforma, elemento per elemento, un array in uno nuovo e lo ritorna
+const newArray = strArray.map((word) => {
+  return word.length
+  // il return identifica come volete trasformare l'elemento corrente
+  // una volta trasformato, verrà inserito come elemento in un nuovo array
+  // il valore di ritorno del map
+})
+
+// convertiamo un array di parole minuscole in un array di parole maiuscole
+const lowercase = ['patricia', 'stefano', 'giulia', 'emanuele']
+
+const uppercase = lowercase.map((firstName) => {
+  return firstName.toUpperCase()
+  // al primo ciclo, ho ritornato 'PATRICIA'
+  // al secondo ciclo, ho ritornato 'STEFANO'
+  // al terzo ciclo, ho ritornato 'GIULIA'
+  // al quarto ciclo, ho ritornato 'EMANUELE'
+  // tutti questi valori ritornati sono stati già automaticamente inseriti in uppercase
+  // che è diventato un NUOVO array (lowercase non è stato danneggiato!) di lunghezza
+  // è pari a lowercase
+})
+
+// dato un array di numeri, convertilo in un nuovo array dove ogni numero viene
+// addizionato di 17
+
+const num1 = [43, 67, 83, 0]
+const plusSeventeen = num1.map((n) => {
+  return n + 17
+}) // [60, 84, 100, 17]
+
+const stringArray = num1.map((num) => {
+  return num.toString()
+})
+
+console.log('stringArray', stringArray)
+
+// .filter()
