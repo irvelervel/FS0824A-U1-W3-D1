@@ -92,3 +92,125 @@ const shortSum = (n1, n2) => n1 + n2 // STO RITORNANDO n1+n2 IMPLICITAMENTE
 // nel caso la funzione freccia sia monoriga e torni il valore,
 // potete togliere le graffe e omettere il return
 console.log('torna 11?', shortSum(5, 6))
+
+// SPREAD OPERATOR
+// ...
+// utilizzandolo su un oggetto, lo spread operator è un singolo operatore
+// che richiama TUTTE LE COPPIE CHIAVE:VALORE di quell'oggetto
+
+const objA = {
+  firstName: 'Gianni',
+  lastName: 'Morandi',
+}
+
+const objB = objA // NON È UNA VERA COPIA!
+// stati attenti!
+objB.lastName = 'Drudi'
+// attenzione perchè avete anche cambiato firstName in objA!
+console.log('OBJA.LASTNAME', objA.lastName)
+
+// ma quindi come la creo una VERA copia?
+
+const robot1 = {
+  brand: 'Tesla',
+  model: 'Optimus',
+}
+
+const robot2 = {
+  ...robot1,
+}
+// ora robot2 è una VERA COPIA (un clone) di robot1, indipendente!
+robot2.brand = 'Boston Dynamics'
+console.log(robot1.brand)
+
+// possiamo con lo spread operator anche fornire un "punto di partenza" da poi arricchire
+const robot3 = {
+  ...robot1, // ha portato dentro robot3 le coppie brand: 'Tesla' e model: 'Optimus'
+  material: 'aluminum',
+}
+
+console.log('ROBOT3', robot3)
+
+// spread operator su array
+const array1 = ['stefano', 'optimus', 'andrea']
+const array2 = array1 // NON È UNA VERA COPIA
+// array2.pop() // toglie "andrea" da array2, ma lo ha anche tolto da array1
+// console.log('ARRAY1', array1)
+
+// creo una VERA copia di array1
+const array3 = [...array1]
+array3.pop() // elimina 'andrea' da array3
+// ma non da array1!
+console.log('ARRAY1', array1)
+
+// possiamo anche creare una copia come punto di partenza, e poi sovrascrivere
+// una proprietà esistente: non avremo due volte la stessa proprietà, perchè
+// negli oggetti JS una proprietà può esserci una volta sola (in questo caso
+// vado a sovrascrivere brand: 'Tesla' con brand: 'Rivian')
+const robot4 = {
+  ...robot3, // quindi c'ha brand, model e material
+  brand: 'Rivian',
+}
+
+delete robot4.material
+console.log('ROBOT4', robot4)
+
+// REST PARAMETERS (...)
+// es. volete creare una funzione che trasforma tutte le stringhe ricevute in maiuscolo
+
+const allToUppercase = (...words) => {
+  console.log('WORDS', words) // words è un ARRAY con tutti i parametri (in questo
+  // caso, stringhe!)
+  let str = ''
+  for (let i = 0; i < words.length; i++) {
+    // questo è un ciclo for che ciclerà TUTTI I PARAMETRI RICEVUTI, che sono
+    // stati "riassunti" nell'array words
+
+    // aggiungo a str, che parte come stringa vuota, una parola dell'array words alla volta
+    // messa in maiuscolo e seguita da uno spazio
+    str = str + words[i].toUpperCase() + ' '
+    // str += words[i].toUpperCase() + ' ' // <-- PRO VERSION
+  }
+  return str // str ora non è più la stringa vuota iniziale, le sono state "aggiunte"
+  // tutte le parole ricevute come parametri messe in maiuscolo
+}
+
+console.log('RISULTATO', allToUppercase('ciao', 'epicode')) // 'CIAO EPICODE'
+console.log('RISULTATO', allToUppercase('io', 'mi', 'chiamo', 'gigi')) // 'IO MI CHIAMO GIGI'
+console.log(
+  'RISULTATO',
+  allToUppercase('oggi', 'piove', 'di', 'brutto', 'brutto', 'brutto')
+) // 'OGGI PIOVE DI BRUTTO BRUTTO BRUTTO'
+
+// umberto chiede se funziona anche con parametri che sono array... :')
+const umberto = (...u) => {
+  console.log(u)
+}
+
+umberto([1], [1, 2], [1, 2, 3])
+
+// DESTRUCTURING DI PROPRIETÀ
+
+const robot5 = {
+  brand: 'Empire Manufacturing',
+  model: 'R2-D2',
+  iq: 200,
+}
+
+console.log(robot5.brand, robot5.model, robot5.iq)
+
+const { brand, model, iq } = robot5 // ho creato 3 nuove variabili!
+
+// brand è una nuova variabile che ho appena creato. L'ho già assegnata a robot5.brand
+console.log('BRAND', brand) // 'Empire Manufacturing'
+// model è una nuova variabile che ho appena creato. L'ho già assegnata a robot5.model
+console.log('MODEL', model) // 'Empire Manufacturing'
+// iq è una nuova variabile che ho appena creato. L'ho già assegnata a robot5.iq
+console.log('IQ', iq) // 'Empire Manufacturing'
+
+robot5.brand = 'Tesla'
+
+// versione migliorata
+console.log(brand, model, iq)
+
+// NUOVI METODI PER GLI ARRAY
