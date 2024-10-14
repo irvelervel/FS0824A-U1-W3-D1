@@ -308,3 +308,96 @@ const stringArray = num1.map((num) => {
 console.log('stringArray', stringArray)
 
 // .filter()
+// filter è FILTRARE un array: dato un array di partenza, filter ritorna un nuovo array selezionando
+// gli elementi da mantenere sulla base di una condizione
+
+const numbers2 = [45, 67, 2, 100, 23]
+
+const above50 = numbers2.filter((num) => {
+  return num > 50
+  // con true ogni elemento finirebbe in above50
+  // con false nessun elemento finirebbe in above50
+})
+
+console.log('ABOVE50', above50) // [67, 100]
+// come .map(), anche .filter() NON DANNEGGIA l'array su cui lo chiamate, ma ne crea uno interamente nuovo
+
+// per OGNI valore voi dovete tornare true/false
+
+const justSecondAndFourth = numbers2.filter((num, i) => {
+  // faccio passare solo il secondo e il quarto elemento, ovvero quelli con indice 1 e 3
+  if (i === 1 || i === 3) {
+    return true
+  } else {
+    return false
+  }
+
+  // PRO VERSION
+  // return i === 1 || i === 3
+})
+
+// .reduce() (una riduzione)
+// reduce prende un array e ritorna un singolo valore
+
+const numbers3 = [2, 3, 4, 7, 8]
+
+const numbers3Total = numbers3.reduce((acc, num) => {
+  return acc + num // stiamo aggiungendo, di volta in volta, num ad acc (un valore accumulato)
+}, 0)
+
+console.log('numbers3Total', numbers3Total) // 24, la somma ti tutti i numeri
+
+// .find() | .findIndex()
+
+const names = [
+  'gerardo',
+  'mariaantonietta',
+  'gennaro',
+  'romualdo',
+  'fantaghirò',
+  'romualdo',
+]
+
+// .findIndex() permette di TROVARE un elemento all'interno di un array
+// data una condizione, se presente, .findIndex() troverà l'elemento e ritornare l'INDICE
+
+// .findIndex() ritornerà sempre l'indice del PRIMO elemento che soddisfa la condizione fornita;
+// nel caso di più elementi che la soddisfino, tornerà sempre l'indice del primo che la soddisfa
+// nel caso in cui NON ci sia nessun elemento che soddisfi la condizione, .findIndex() torna -1
+const indexfound = names.findIndex((singleName) => {
+  return singleName === 'romualdo'
+})
+
+console.log('indexfound', indexfound)
+
+const arrayOfAnimals = [
+  {
+    species: 'Cat',
+    numberOfPaws: 4,
+    numberOfWhiskers: 16, // baffi
+  },
+  {
+    species: 'Parrot',
+    numberOfPaws: 2,
+    numberOfWhiskers: 0,
+  },
+]
+
+// FINDINDEX
+// voglio trovare l'indice dell'animale che ha DUE zampe
+const parrotIndex = arrayOfAnimals.findIndex((animal) => {
+  // animal è sempre un OGGETTO diverso dell'array
+  return animal.numberOfPaws === 2
+}) // ha trovato l'indice 1 (pappagallo)
+
+const catIndex = arrayOfAnimals.findIndex((animal) => {
+  return animal.numberOfWhiskers > 0
+}) // ha trovato l'indice 0 (gatto)
+console.log('catIndex', catIndex) // 0
+
+// FIND
+const catObject = arrayOfAnimals.find((animal) => {
+  return animal.numberOfWhiskers > 0
+}) // ha trovato l'animale 0 (gatto)
+console.log('catObject', catObject)
+// se find non trova un'occorrenza, ritorna undefined
